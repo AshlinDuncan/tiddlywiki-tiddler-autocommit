@@ -1,0 +1,2 @@
+title: $:/plugins/ashlin/tiddler-autocommit/Config/TiddlerIgnoreFilter
+text: [all[]] -[[$:/HistoryList]] -[[$:/StoryList]] -[[$:/Import]] -[[$:/isEncrypted]] -[[$:/UploadName]] -[prefix[$:/state/]] -[prefix[$:/temp/]] -[prefix[$:/plugins/ashlin/tiddler-autocommit/state/]] -[prefix[$:/status]]

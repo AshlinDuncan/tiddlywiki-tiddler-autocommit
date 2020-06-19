@@ -1,0 +1,19 @@
+title: $:/plugins/ashlin/tiddler-autocommit/ui/PushButton
+tags: $:/tags/PageControls
+
+\whitespace trim
+
+\define PushAction()
+<$action-git-push />
+\end
+
+<$button popup=<<qualify "$:/state/popup/commit">> tooltip="Push commits" aria-label="Commit" class=<<tv-config-toolbar-class>> selectedClass="tc-selected" actions=<<PushAction>>>
+<span class="git-ahead-indicator">
+<$list filter="[<tv-config-toolbar-icons>match[yes]]">
+{{$:/plugins/ashlin/tiddler-autocommit/icons/ic_push}}
+</$list>
+<$list filter="[<tv-config-toolbar-text>match[yes]]">
+<span class="tc-btn-text"><$text text="Push"/></span>
+</$list>
+</span>
+</$button>

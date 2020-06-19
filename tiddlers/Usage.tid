@@ -1,0 +1,51 @@
+created: 20200619104206009
+modified: 20200619110053946
+tags: 
+title: Usage
+type: text/vnd.tiddlywiki
+
+! UI
+When you activate this plugin, you'll see two new icons on the right page tools bar.
+
+!! Commit Button
+
+The commit button opens a dialogue with a "message," "author," and "tag" box. This dialogue allows you to commit all changed tiddlers in one fell swoop. Several things to note:
+
+* The "message" box must contain content.
+* The "author" box is autofilled with your current username. If left blank, it will commit as "Anonymous Tiddlywikier <>."
+* The "tag" box is for tagging a commit through git. Git tags are unique, so choose one you haven't used before! If you //have// used the tag before, the commit will still go through, but it won't be tagged.
+* When the commit button is red, there are uncommitted changes. 
+
+!! Push Button
+
+The push button allows you to push your commits to the remote.
+
+* When the push button is red, there are unpushed commits.
+
+! Configuration
+
+For this plugin to work, your tiddlers folder //on the node.js server// must be within a git repository.
+
+!! Branches
+The branch set in the configuration tab in $:/ControlPanel (defaults to `master`) must track a remote branch, so that pushing works.
+
+If the names are different, you'll have to set `push.default` in the git config to enable automatic pushing with just `git push`. 
+
+!! Filters
+
+By default, this plugin excludes tiddlers under  [[$:/plugins/ashlin/tiddler-autocommit/Config/TiddlerIgnoreFilter]], because you probably don't want state tiddlers committed. If you do, for some reason, you can modify that file, but be sure to keep the specific state files from the plugin excluded. If not, you'll create an infinite loop of uncommitted changes, tearing apart your fragile psyche!
+
+! Development
+
+I'm not currently actively developing this plugin. As it stands, it's an experimental first draft. However, if you want to expand or modify or bug fix, there are several things to know:
+
+* Take a look at the npm scripts in `package.json`. For development, `npm serve` will serve this wiki and build the plugin.
+* For testing purposes, I recommend creating a git sub-repository within the tiddlers directory of this wiki, and then deleting it once you're done testing. 
+
+!! Future Improvements
+
+Things that'd be nice to add at some point:
+
+* The ability to stage specific tiddlers, like actual git.
+* Some sort of diff view and/or ability to see or load prior commits
+* An actual testing suite

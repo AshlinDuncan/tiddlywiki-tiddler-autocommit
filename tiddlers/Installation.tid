@@ -1,0 +1,13 @@
+created: 20200619103440379
+modified: 20200619104118895
+tags: 
+title: Installation
+type: text/vnd.tiddlywiki
+
+Click and drag the following link into your wiki:
+
+!! [[$:/plugins/ashlin/tiddler-autocommit]]
+
+''Note:'' You need to set up a node.js server and a git repo, or this plugin won't work. For more specific instructions on how to set up the repo, check out the configuration tab in [[$:/ControlPanel]].
+
+''Another Note:'' This plugin is experimental. It has bugs. //Please// don't solely rely on it.

@@ -1,0 +1,16 @@
+title: $:/plugins/ashlin/tiddler-autocommit/ui/StyleSheet
+tags: $:/tags/Stylesheet
+
+\rules only filteredtranscludeinline transcludeinline macrodef macrocallinline html
+
+.git-dirty-indicator svg {
+	fill: <$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]" emptyMessage="unset">
+	red
+	</$list>;
+}
+
+.git-ahead-indicator svg {
+	fill: <$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Ahead]text[true]]" emptyMessage="unset">
+	red
+	</$list>;
+}

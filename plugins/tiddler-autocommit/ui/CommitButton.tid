@@ -1,0 +1,55 @@
+title: $:/plugins/ashlin/tiddler-autocommit/ui/CommitButton
+tags: $:/tags/PageControls
+
+\whitespace trim
+
+\define SetUser()
+<$action-setfield $tiddler=<<qualify "$:/state/input/commit-author">> text={{$:/status/UserName}} />
+\end
+
+\define CommitAction()
+<$action-git-commit tag=<<tag>> message=<<message>> author=<<author>>  />
+\end
+
+\define CommitForm()
+Message: 
+<br>
+<$edit-text focus="true" tiddler=<<qualify "$:/state/input/commit-message">> placeholder="Type your commit message here..." default=""></$edit-text>
+<br>
+Author: <$edit-text placeholder="Anonymous Tiddlywikier <>" tiddler=<<qualify "$:/state/input/commit-author">>  tag="input"></$edit-text>
+<br>
+Tag: <$edit-text  tiddler=<<qualify "$:/state/input/commit-tag">> default=""  tag="input"></$edit-text>
+
+<$set name="tag" field="text" tiddler=<<qualify "$:/state/input/commit-tag">>>
+<$set name="message" field="text" tiddler=<<qualify "$:/state/input/commit-message">>>
+<$set name="author" field="text" tiddler=<<qualify "$:/state/input/commit-author">>> 
+<$button actions=<<CommitAction>> >Commit</$button>
+</$set>
+</$set>
+</$set>
+\end
+
+<$button popup=<<qualify "$:/state/popup/commit">> tooltip="Commit changes" aria-label="Commit" class=<<tv-config-toolbar-class>> selectedClass="tc-selected" actions=<<SetUser>>>
+<span class="git-dirty-indicator">
+<$list filter="[<tv-config-toolbar-icons>match[yes]]">
+{{$:/plugins/ashlin/tiddler-autocommit/icons/ic_commit}}
+</$list>
+<$list filter="[<tv-config-toolbar-text>match[yes]]">
+<span class="tc-btn-text"><$text text="Commit"/></span>
+</$list>
+</span>
+</$button>
+
+
+<$reveal state=<<qualify "$:/state/popup/commit">> type="popup" position="below" animate="yes" class="tc-popup-keep">
+
+<div class="tc-drop-down">
+
+Commit Changes
+
+<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]" emptyMessage="No changes to commit!">
+<<CommitForm>>
+</$list>
+
+</div>
+</$reveal>

@@ -1,0 +1,13 @@
+title: $:/plugins/ashlin/tiddler-autocommit/Config
+tags: $:/tags/ControlPanel
+caption: Tiddler Autocommit Config
+text:
+
+''Warning'': These settings must be first configured in Git. You MUST set up:
+
+* A repository so that the tiddler directory on the server is inside
+* A local branch matching the local branch name, e.g. `master`
+* ...which tracks a corresponding remote branch, so that `git push`ing the branch pushes it to the upstream.
+** Note: If the remote branch is named differently than the local branch, you'll have to update git's `push.default` settings, so that `push` simply pushes it. Otherwise, differently named local and remote branches aren't supported. 
+
+|Local Branch | <$edit-text tiddler="$:/plugins/ashlin/tiddler-autocommit/Config/LocalBranch" tag=input placeholder="ex: master"/> |

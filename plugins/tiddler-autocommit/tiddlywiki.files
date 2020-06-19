@@ -1,0 +1,45 @@
+{
+	"directories": [
+		{
+			"path": "lib",
+			"filesRegExp": "^.*\\.js$",
+			"isTiddlerFile": true,
+			"fields": {}
+		},
+		{
+			"path": "config",
+			"filesRegExp": "^.*\\.tid$",
+			"isTiddlerFile": true,
+			"fields": {}
+		},
+		{
+			"path": "ui",
+			"filesRegExp": "^.*\\.tid$",
+			"isTiddlerFile": true,
+			"fields": {}
+		},
+		{
+			"path": "state",
+			"filesRegExp": "^.*\\.tid$",
+			"isTiddlerFile": true,
+			"fields": {}
+		},
+		{
+			"path": "icons",
+			"filesRegExp": "^.*\\.tid$",
+			"isTiddlerFile": true,
+			"fields": {}
+		}
+	],
+	"tiddlers": [
+		{
+			"file": "lib/simple-git-promise-bundle.js",
+			"isTiddlerFile": false,
+			"fields": {
+				"title": "$:/plugins/ashlin/tiddler-autocommit/simple-git-promise-bundle.js",
+				"type": "application/javascript",
+				"module-type": "library"
+			}
+		}
+	]
+}
