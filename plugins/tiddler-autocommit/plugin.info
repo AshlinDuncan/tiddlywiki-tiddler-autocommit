@@ -2,7 +2,7 @@
     "title": "$:/plugins/ashlin/tiddler-autocommit",
     "description": "Adds buttons for commiting and pushing tiddlers to a Node.js server-side git repository.",
     "author": "Ashlin Duncan",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "core-version": ">=5.0.8",
     "source": "",
     "plugin-type": "plugin"
