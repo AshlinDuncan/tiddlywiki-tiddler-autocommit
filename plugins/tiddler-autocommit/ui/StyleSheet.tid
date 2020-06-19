@@ -4,13 +4,17 @@ tags: $:/tags/Stylesheet
 \rules only filteredtranscludeinline transcludeinline macrodef macrocallinline html
 
 .git-dirty-indicator svg {
-	fill: <$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]" emptyMessage="unset">
-	red
-	</$list>;
+	transition: fill 250ms ease-in-out;
+	/* Sets the fill to the theme's dirty indicator color when dirty */
+	<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]">
+	fill: <<colour dirty-indicator>>;
+	</$list>
 }
 
 .git-ahead-indicator svg {
-	fill: <$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Ahead]text[true]]" emptyMessage="unset">
-	red
-	</$list>;
+	transition: fill 250ms ease-in-out;
+	/* Sets the fill to the theme's dirty indicator color when ahead */
+	<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Ahead]text[true]]">
+	fill: <<colour dirty-indicator>>;
+	</$list>
 }
