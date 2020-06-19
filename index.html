@@ -9659,7 +9659,7 @@ Usage</pre>
         &quot;$:/plugins/ashlin/tiddler-autocommit/ui/StyleSheet&quot;: {
             &quot;title&quot;: &quot;$:/plugins/ashlin/tiddler-autocommit/ui/StyleSheet&quot;,
             &quot;tags&quot;: &quot;$:/tags/Stylesheet&quot;,
-            &quot;text&quot;: &quot;\\rules only filteredtranscludeinline transcludeinline macrodef macrocallinline html\n\n.git-dirty-indicator svg {\r\n\tfill: &lt;$list filter=\&quot;[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]\&quot; emptyMessage=\&quot;unset\&quot;&gt;\r\n\tred\r\n\t&lt;/$list&gt;;\r\n}\n\n.git-ahead-indicator svg {\r\n\tfill: &lt;$list filter=\&quot;[title[$:/plugins/ashlin/tiddler-autocommit/state/Ahead]text[true]]\&quot; emptyMessage=\&quot;unset\&quot;&gt;\r\n\tred\r\n\t&lt;/$list&gt;;\r\n}&quot;
+            &quot;text&quot;: &quot;\\rules only filteredtranscludeinline transcludeinline macrodef macrocallinline html\n\n.git-dirty-indicator svg {\r\n\ttransition: fill 250ms ease-in-out;\r\n\t/* Sets the fill to the theme's dirty indicator color when dirty */\r\n\t&lt;$list filter=\&quot;[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]\&quot;&gt;\r\n\tfill: &lt;&lt;colour dirty-indicator&gt;&gt;;\r\n\t&lt;/$list&gt;\r\n}\n\n.git-ahead-indicator svg {\r\n\ttransition: fill 250ms ease-in-out;\r\n\t/* Sets the fill to the theme's dirty indicator color when ahead */\r\n\t&lt;$list filter=\&quot;[title[$:/plugins/ashlin/tiddler-autocommit/state/Ahead]text[true]]\&quot;&gt;\r\n\tfill: &lt;&lt;colour dirty-indicator&gt;&gt;;\r\n\t&lt;/$list&gt;\r\n}&quot;
         },
         &quot;$:/plugins/ashlin/tiddler-autocommit/state/Ahead&quot;: {
             &quot;title&quot;: &quot;$:/plugins/ashlin/tiddler-autocommit/state/Ahead&quot;,
