@@ -83,8 +83,6 @@ export async function handler(request, response, state) {
 		let dirty = status.deleted.length > 0;
 		let tiddlerPaths = getFilteredTiddlerPaths();
 
-		console.log(tiddlerPaths, status.files);
-
 		// Go through each tiddler and look for changes
 		for (let path of tiddlerPaths) {
 			if (dirty) break;

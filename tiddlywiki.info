@@ -34,6 +34,15 @@
             "$:/core/templates/static.template.css",
             "static/static.css",
             "text/plain"
+        ],
+        "tiddler-autocommit": [
+            "--rendertiddler",
+            "$:/plugins/ashlin/tiddler-autocommit",
+            "tiddler-autocommit.tid",
+            "text/plain",
+            "$:/core/templates/exporters/TidFile",
+            "exportFilter",
+            "[<currentTiddler>]"
         ]
     }
 }

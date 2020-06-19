@@ -5,11 +5,12 @@
   "main": "npm run build-all",
   "scripts": {
     "build-all": "npm run build-plugin && npm run build-wiki",
-    "build-plugin": "npm run babel && tiddlywiki --output build --build tiddler-autocommit",
+    "build-plugin": "npm run buildtools && tiddlywiki --output build --build tiddler-autocommit",
     "build-wiki": "tiddlywiki --output build --build index",
+    "buildtools": "npm run webpack && npm run babel",
+    "webpack": "webpack",
     "babel": "babel plugins/tiddler-autocommit/src -d plugins/tiddler-autocommit/lib",
-    "serve": "npm run babel && tiddlywiki --listen",
-    "postinstall": "(cd plugins/tiddler-autocommit && npm install);"
+    "serve": "npm run buildtools && tiddlywiki --listen"
   },
   "author": "Ashlin Duncan",
   "license": "ISC",

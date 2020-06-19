@@ -34,9 +34,7 @@ class GitPushWidget extends Widget {
 
 	// Let's go!
 	invokeAction(triggeringWidget, event) {
-		console.log("Push!");
 		if ($tw.ashlinGitSyncer) {
-			console.log("Yep!");
 			$tw.ashlinGitSyncer.push();
 			return true;
 		} else {

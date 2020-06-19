@@ -36,9 +36,7 @@ class GitCommitWidget extends Widget {
 
 	// Let's go!
 	invokeAction(triggeringWidget, event) {
-		console.log("Commit!", this.commitMessage, this.commitAuthor, this.commitTag);
 		if ($tw.ashlinGitSyncer) {
-			console.log("yep!");
 			$tw.ashlinGitSyncer.commit({
 				message: this.commitMessage,
 				author: this.commitAuthor,
@@ -46,7 +44,6 @@ class GitCommitWidget extends Widget {
 			});
 			return true;
 		} else {
-			console.log("nope :(");
 			return false;
 		}
 	}

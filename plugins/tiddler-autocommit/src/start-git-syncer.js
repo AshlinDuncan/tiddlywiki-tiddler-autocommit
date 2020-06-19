@@ -13,7 +13,6 @@ import { GitSyncer } from "./git-syncer.js";
 export function startup() {
 	// Only run on the client-side browser!
 	if (!$tw.browser || $tw.node) {
-		console.log("is node");
 		return;
 	}
 
