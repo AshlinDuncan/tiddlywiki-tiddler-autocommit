@@ -1,6 +1,11 @@
 # Tiddler Autocommit
 A TiddlyWiki plugin that lets you commit your tiddlers right from the browser.
 
+## Installation
+**Quick Install**: Visit the [Wiki Page](https://ashlinduncan.github.io/tiddlywiki-tiddler-autocommit/) and follow the instructions on the Installation tiddler.
+
+**Building**: Clone the repo, run `npm install`, run `npm run build-plugin`, and then check the `build` directory. There should be a `tiddler-autocommit.tid` plugin there, which you can drag-and-drop (or otherwise import) into your TiddlyWiki.
+
 ## UI
 When you activate this plugin, you'll see two new icons on the right page tools bar.
 
