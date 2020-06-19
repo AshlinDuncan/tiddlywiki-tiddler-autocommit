@@ -23,6 +23,8 @@ The push button allows you to push your commits to the remote.
 
 For this plugin to work, your tiddlers folder *on the node.js server* must be within a git repository.
 
+**DO NOT** attempt to modify the git repository on the server while the node.js TiddlyWiki server is running with this plugin installed! Always shut down the server first, or very weird things could happen.
+
 ### Branches
 The branch set in the configuration tab in `$:/ControlPanel` (defaults to `master`) must track a remote branch, so that pushing works.
 
