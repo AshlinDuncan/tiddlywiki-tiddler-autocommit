@@ -18,3 +18,57 @@ tags: $:/tags/Stylesheet
 	fill: <<colour dirty-indicator>>;
 	</$list>
 }
+
+.git-syncspinny {
+	transform:rotateZ(0) scale(0.8);
+	animation-name: spinny;
+	animation-duration: 0.7s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+@keyframes spinny {
+	from {
+		transform:rotateZ(0) scale(0.8);
+	}
+	to {
+		transform:rotateZ(360deg) scale(0.8);
+	}
+}
+
+.tc-drop-down button.git-commit-button {
+	width: auto;
+	display: inline-block;
+}
+
+.git-commit-label {
+	color:<<colour foreground>>;
+}
+
+.git-commit-header {
+	margin:0 0 0 10px;
+	color:<<colour foreground>>;
+}
+
+.git-commit-form {
+	margin:4px 15px;
+}
+
+.git-commit-row {
+	display:flex;
+	flex-direction: row;
+	align-items:center;
+}
+
+.git-commit-form .git-commit-input {
+	width:100%;
+	margin:2px 0;
+}
+
+.git-commit-label {
+	margin-right:10px;
+}
+
+.git-commit-nochanges {
+	margin: 10px 0 10px 15px;
+}

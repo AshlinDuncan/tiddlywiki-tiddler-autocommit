@@ -16,6 +16,8 @@ const filterTid = "$:/plugins/ashlin/tiddler-autocommit/Config/TiddlerIgnoreFilt
 const localBranchTid = "$:/plugins/ashlin/tiddler-autocommit/Config/LocalBranch";
 const dirtyTid = "$:/plugins/ashlin/tiddler-autocommit/state/Dirty";
 const aheadTid = "$:/plugins/ashlin/tiddler-autocommit/state/Ahead";
+const commitInProgressTid = "$:/plugins/ashlin/tiddler-autocommit/state/CommitInProgress";
+const pushInProgressTid = "$:/plugins/ashlin/tiddler-autocommit/state/PushInProgress";
 
 export class GitSyncer {
 	constructor({ baseurl, logging = false }) {
@@ -132,6 +134,12 @@ export class GitSyncer {
 			ahead = body.ahead;
 		}
 
+		if (body.error && body.message) {
+			this.logger.alert(body.message);
+		} else if (body.message) {
+			this.logger.log(body.message);
+		}
+
 		return { dirty, ahead }
 	}
 
@@ -140,24 +148,25 @@ export class GitSyncer {
 		let { dirty, ahead } = await this._getState();
 
 		if (dirty != null) {
-			$tw.wiki.addTiddler(new $tw.Tiddler({
-				title: dirtyTid,
-				text: dirty ? "true" : "false",
-			}));
+			this._updateBoolTiddler(dirtyTid, dirty);
 		}
 
 		if (ahead != null) {
-			$tw.wiki.addTiddler(new $tw.Tiddler({
-				title: aheadTid,
-				text: ahead ? "true" : "false",
-			}));
+			this._updateBoolTiddler(aheadTid, ahead);
 		}
 	}
 
 	// Commits the current wiki to the repo
 	async commit({ message, author, tag }) {
 		this._updateConf();
+
+		if (!message) {
+			this.logger.alert("Commit message must exist!");
+			return;
+		}
+
 		this.logger.log("Commiting ", message, author, tag);
+		this._updateBoolTiddler(commitInProgressTid, true);
 		// Using fetch
 		let response;
 		try {
@@ -178,6 +187,7 @@ export class GitSyncer {
 			console.error("Network error during commit:", e);
 			return;
 		}
+		this._updateBoolTiddler(commitInProgressTid, false);
 
 		// Process response
 		if (!response.ok) {
@@ -187,8 +197,10 @@ export class GitSyncer {
 
 		let body = await response.json();
 
-		if (body.message) {
+		if (body.error && body.message) {
 			this.logger.alert(body.message);
+		} else if (body.message) {
+			this.logger.log(body.message);
 		}
 
 		await this.updateState();
@@ -198,6 +210,7 @@ export class GitSyncer {
 	async push() {
 		this._updateConf();
 		this.logger.log(`Pushing. Branch: ${this.branch}`);
+		this._updateBoolTiddler(pushInProgressTid, true);
 		// Using fetch
 		let response;
 		try {
@@ -216,6 +229,7 @@ export class GitSyncer {
 			return;
 		}
 
+		this._updateBoolTiddler(pushInProgressTid, false);
 		// Process the response
 		if (!response.ok) {
 			await this._handleHTTPError(response, "push");
@@ -224,11 +238,20 @@ export class GitSyncer {
 
 		let body = await response.json();
 
-		if (body.message) {
+		if (body.error && body.message) {
 			this.logger.alert(body.message);
+		} else if (body.message) {
+			this.logger.log(body.message);
 		}
 
 		await this.updateState();
+	}
+
+	_updateBoolTiddler(tiddler, value) {
+		$tw.wiki.addTiddler(new $tw.Tiddler({
+			title: tiddler,
+			text: value ? "true" : "false",
+		}));
 	}
 
 	// Consumes response body, displays HTTP error.

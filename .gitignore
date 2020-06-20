@@ -4,6 +4,11 @@ plugins/tiddler-autocommit/lib/
 # Output build dir
 build/
 
+# TiddlyWiki
+tiddlers/$__plugins_ashlin_tiddler-autocommit_state*.tid
+tiddlers/$__StoryList*.tid
+
+
 # Logs
 logs
 *.log

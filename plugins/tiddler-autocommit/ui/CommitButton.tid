@@ -3,36 +3,47 @@ tags: $:/tags/PageControls
 
 \whitespace trim
 
+\define NoChanges()
+<span class="git-commit-nochanges">No changes to commit!</span>
+\end
+
 \define SetUser()
 <$action-setfield $tiddler=<<qualify "$:/state/input/commit-author">> text={{$:/status/UserName}} />
 \end
 
 \define CommitAction()
 <$action-git-commit tag=<<tag>> message=<<message>> author=<<author>>  />
+<$action-setfield $tiddler=<<qualify "$:/state/input/commit-tag">> text="" />
+<$action-setfield $tiddler=<<qualify "$:/state/input/commit-message">> text="" />
+<$action-setfield $tiddler=<<qualify "$:/state/popup/commit">> text="false" />
 \end
 
 \define CommitForm()
-Message: 
+<div class="git-commit-form">
+<span class="git-commit-label">Message:</span> 
 <br>
-<$edit-text focus="true" tiddler=<<qualify "$:/state/input/commit-message">> placeholder="Type your commit message here..." default=""></$edit-text>
-<br>
-Author: <$edit-text placeholder="Anonymous Tiddlywikier <>" tiddler=<<qualify "$:/state/input/commit-author">>  tag="input"></$edit-text>
-<br>
-Tag: <$edit-text  tiddler=<<qualify "$:/state/input/commit-tag">> default=""  tag="input"></$edit-text>
-
+<$edit-text focus="true" tiddler=<<qualify "$:/state/input/commit-message">> placeholder="Type your commit message here..." default="" class="git-commit-input git-message-input"></$edit-text>
+<div class="git-commit-row"><span class="git-commit-label">Author:</span> <$edit-text placeholder="Anonymous Tiddlywikier <>" tiddler=<<qualify "$:/state/input/commit-author">>  tag="input" class="git-commit-input git-author-input"></$edit-text></div>
+<div class="git-commit-row"><span class="git-commit-label">Tag:</span> <$edit-text  tiddler=<<qualify "$:/state/input/commit-tag">> default=""  tag="input" class="git-commit-input git-tag-input"></$edit-text></div>
 <$set name="tag" field="text" tiddler=<<qualify "$:/state/input/commit-tag">>>
 <$set name="message" field="text" tiddler=<<qualify "$:/state/input/commit-message">>>
 <$set name="author" field="text" tiddler=<<qualify "$:/state/input/commit-author">>> 
-<$button actions=<<CommitAction>> >Commit</$button>
+<$button actions=<<CommitAction>> class="git-commit-button" >Commit</$button>
 </$set>
 </$set>
 </$set>
+</div>
 \end
 
 <$button popup=<<qualify "$:/state/popup/commit">> tooltip="Commit changes" aria-label="Commit" class=<<tv-config-toolbar-class>> selectedClass="tc-selected" actions=<<SetUser>>>
 <span class="git-dirty-indicator">
 <$list filter="[<tv-config-toolbar-icons>match[yes]]">
+<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/CommitInProgress]text[false]]">
 {{$:/plugins/ashlin/tiddler-autocommit/icons/ic_commit}}
+</$list>
+<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/CommitInProgress]text[true]]">
+{{$:/plugins/ashlin/tiddler-autocommit/icons/sync_alt}}
+</$list>
 </$list>
 <$list filter="[<tv-config-toolbar-text>match[yes]]">
 <span class="tc-btn-text"><$text text="Commit"/></span>
@@ -42,14 +53,10 @@ Tag: <$edit-text  tiddler=<<qualify "$:/state/input/commit-tag">> default=""  ta
 
 
 <$reveal state=<<qualify "$:/state/popup/commit">> type="popup" position="below" animate="yes" class="tc-popup-keep">
-
 <div class="tc-drop-down">
-
-Commit Changes
-
-<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]" emptyMessage="No changes to commit!">
+<h2 class="git-commit-header">Commit Changes</h2>
+<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/Dirty]text[true]]" emptyMessage=<<NoChanges>>>
 <<CommitForm>>
 </$list>
-
 </div>
 </$reveal>

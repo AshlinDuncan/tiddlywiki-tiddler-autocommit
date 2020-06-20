@@ -54,7 +54,7 @@ export async function handler(request, response, state) {
 		{
 			let isRepo = await simpleGit.checkIsRepo();
 			if (!isRepo) {
-				sendJSON(405, { message: `Git repository does not exist at ${path}.` }, response);
+				sendJSON(405, { error: true, message: `Git repository does not exist at ${path}.` }, response);
 				return;
 			}
 		}
@@ -63,7 +63,7 @@ export async function handler(request, response, state) {
 		{
 			let { branches } = await simpleGit.branchLocal();
 			if (!branches.hasOwnProperty(branch)) {
-				sendJSON(405, { message: `Branch ${branch} does not exist.` }, response);
+				sendJSON(405, { error: true, message: `Branch ${branch} does not exist.` }, response);
 				return;	
 			}
 		}
@@ -75,7 +75,7 @@ export async function handler(request, response, state) {
 		let status = await simpleGit.status();
 
 		if (status.tracking == null) {
-			sendJSON(405, { message: `Branch ${branch} does not track a remote branch, cannot push.`});
+			sendJSON(405, { error: true, message: `Branch ${branch} does not track a remote branch, cannot push.`});
 			return;
 		}
 
@@ -103,10 +103,10 @@ export async function handler(request, response, state) {
 		// Now, ahead will tell us the push status
 		let ahead = status.ahead > 0;
 
-		sendJSON(200, { dirty, ahead }, response);
+		sendJSON(200, { dirty, ahead, error: false }, response);
 		return;
 	} catch (e) {
-		sendJSON(500, { message: `Unhandled git or server error. Check the logs, nerd.` }, response);
+		sendJSON(500, { error: true, message: `Unhandled git or server error. Check the logs, nerd.` }, response);
 		console.error(e);
 		return;
 	}

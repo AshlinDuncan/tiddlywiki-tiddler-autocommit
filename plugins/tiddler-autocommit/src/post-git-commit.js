@@ -55,7 +55,7 @@ export async function handler(request, response, state) {
 	let path = $tw.boot.wikiTiddlersPath;
 
 	if (!message) {
-		sendJSON(400, { message: `Commit message must exist.` }, response);
+		sendJSON(400, { error: true, message: `Commit message must exist.` }, response);
 		return;
 	}
 
@@ -74,7 +74,7 @@ export async function handler(request, response, state) {
 		{
 			let isRepo = await simpleGit.checkIsRepo();
 			if (!isRepo) {
-				sendJSON(405, { message: `Git repository does not exist at ${path}.` }, response);
+				sendJSON(405, { error: true, message: `Git repository does not exist at ${path}.` }, response);
 				return;
 			}
 		}
@@ -83,7 +83,7 @@ export async function handler(request, response, state) {
 		{
 			let { branches } = await simpleGit.branchLocal();
 			if (!branches.hasOwnProperty(branch)) {
-				sendJSON(405, { message: `Branch ${branch} does not exist.` }, response);
+				sendJSON(405, { error: true, message: `Branch ${branch} does not exist.` }, response);
 				return;	
 			}
 		}
@@ -120,7 +120,7 @@ export async function handler(request, response, state) {
 			let tags = await simpleGit.tags();
 			for (let oldTag of tags.all) {
 				if (oldTag === tag) {
-					sendJSON(200, { message: `Commit successful, but tag ${tag} already exists.` }, response);
+					sendJSON(200, { error: true, message: `Commit successful, but tag ${tag} already exists.` }, response);
 					return;
 				}
 			}
@@ -128,10 +128,10 @@ export async function handler(request, response, state) {
 			await simpleGit.addTag(tag);
 		}
 
-		sendJSON(200, { message: `Committed successfully` }, response);
+		sendJSON(200, { error: false, message: `Committed successfully` }, response);
 		return;
 	} catch (e) {
-		sendJSON(500, { message: `Unhandled git or server error. Check the logs, nerd.` }, response);
+		sendJSON(500, { error: true, message: `Unhandled git or server error. Check the logs, nerd.` }, response);
 		console.error(e);
 		return;
 	}

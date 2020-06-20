@@ -7,10 +7,15 @@ tags: $:/tags/PageControls
 <$action-git-push />
 \end
 
-<$button popup=<<qualify "$:/state/popup/commit">> tooltip="Push commits" aria-label="Commit" class=<<tv-config-toolbar-class>> selectedClass="tc-selected" actions=<<PushAction>>>
+<$button popup=<<qualify "$:/state/popup/commit">> tooltip="Push commits" aria-label="Commit" class=<<tv-config-toolbar-class>> actions=<<PushAction>>>
 <span class="git-ahead-indicator">
 <$list filter="[<tv-config-toolbar-icons>match[yes]]">
+<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/PushInProgress]text[false]]">
 {{$:/plugins/ashlin/tiddler-autocommit/icons/ic_push}}
+</$list>
+<$list filter="[title[$:/plugins/ashlin/tiddler-autocommit/state/PushInProgress]text[true]]">
+{{$:/plugins/ashlin/tiddler-autocommit/icons/sync_alt}}
+</$list>
 </$list>
 <$list filter="[<tv-config-toolbar-text>match[yes]]">
 <span class="tc-btn-text"><$text text="Push"/></span>
