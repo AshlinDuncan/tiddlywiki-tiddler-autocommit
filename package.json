@@ -22,6 +22,6 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "simple-git": "^2.6.0"
+    "simple-git": "^3.16.0"
   }
 }
